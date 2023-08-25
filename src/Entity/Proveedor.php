@@ -32,6 +32,10 @@ class Proveedor
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $fecha_actualizacion = null;
 
+    #[ORM\ManyToOne(inversedBy: 'proveedor')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Tipo $tipo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +109,18 @@ class Proveedor
     public function setFechaActualizacion(\DateTimeInterface $fecha_actualizacion): static
     {
         $this->fecha_actualizacion = $fecha_actualizacion;
+
+        return $this;
+    }
+
+    public function getTipo(): ?Tipo
+    {
+        return $this->tipo;
+    }
+
+    public function setTipo(?Tipo $tipo): static
+    {
+        $this->tipo = $tipo;
 
         return $this;
     }
