@@ -17,6 +17,8 @@
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Telefono</th>
+                <th>Tipo</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -27,7 +29,12 @@
                     <td>{{ proveedor.nombre }}</td>
                     <td>{{ proveedor.correo }}</td>
                     <td>{{ proveedor.telefono }}</td>
-                   
+                    <td>{{ proveedor.tipo.tipo }}</td>
+                    <td>{{ proveedor.activo ? "Activo" : "Inactivo" }}</td>
+                    {# <td>
+                        <a href="{{ path('proveedor_show', {'id': proveedor.id}) }}">show</a>
+                        <a href="{{ path('proveedor_edit', {'id': proveedor.id}) }}">edit</a>
+                    </td> #}
                 </tr>
             {% else %}
                 <tr>

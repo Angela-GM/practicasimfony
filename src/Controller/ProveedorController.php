@@ -38,19 +38,7 @@ class ProveedorController extends AbstractController
     //     ]);
     // }
 
-    
-    // #[Route('/proveedor/{id}', name: 'proveedor_id')]
-    // public function findForId($id): Response
-    // {
-    //     $proveedor = $this->em->getRepository(Proveedor::class)->find($id);
-       
-    //     return $this->render('proveedor/index.html.twig', [
-    //         'proveedor' => $proveedor
-                
-    //     ]);
-    // }
-
-    #[Route('/proveedor', name: 'all_proveedor')]
+    #[Route('/proveedores', name: 'all_proveedor')]
     public function allProveedor(): Response
     {
         $proveedores = $this->em->getRepository(Proveedor::class)->findAll();
@@ -60,6 +48,19 @@ class ProveedorController extends AbstractController
                 
         ]);
     }
+    
+    #[Route('/proveedor/{id}', name: 'proveedor_id')]
+    public function findForId($id): Response
+    {
+        $proveedor = $this->em->getRepository(Proveedor::class)->find($id);
+       
+        return $this->render('proveedor/proveedor.html.twig', [
+            'proveedor' => $proveedor
+                
+        ]);
+    }
+
+
 
     
 }
