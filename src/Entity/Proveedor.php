@@ -24,7 +24,7 @@ class Proveedor
     private ?string $telefono = null;
 
     #[ORM\Column]
-    private ?bool $activo = null;
+    private ?bool $activo = true;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $fecha_creacion = null;
@@ -32,7 +32,7 @@ class Proveedor
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $fecha_actualizacion = null;
 
-    #[ORM\ManyToOne(inversedBy: 'proveedor')]
+    #[ORM\ManyToOne(inversedBy: 'proveedor', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Tipo $tipo = null;
 
