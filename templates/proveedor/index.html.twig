@@ -8,7 +8,33 @@
 </style>
 <h1>Listado de Proveedores</h1>
 
-    {{ dump(proveedores) }}
+    {# {{ dump(proveedores) }} #}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proveedor in proveedores %}
+                <tr>
+                    <td>{{ proveedor.id }}</td>
+                    <td>{{ proveedor.nombre }}</td>
+                    <td>{{ proveedor.correo }}</td>
+                    <td>{{ proveedor.telefono }}</td>
+                   
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">No hay registros</td>
+                </tr>
+            {% endfor %}
+        </tbody>
 
 
 
