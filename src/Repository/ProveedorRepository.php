@@ -45,4 +45,15 @@ class ProveedorRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findProveedor($id){
+    return $this->getEntityManager()
+    ->createQuery('
+        SELECT proveedor.id, proveedor.nombre
+        FROM App\Entity\Proveedor proveedor
+        WHERE proveedor.id = :id
+        ')
+        ->setParameter('id', $id)
+        ->getSingleResult();
+    }
 }

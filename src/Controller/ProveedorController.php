@@ -53,9 +53,11 @@ class ProveedorController extends AbstractController
     public function findForId($id): Response
     {
         $proveedor = $this->em->getRepository(Proveedor::class)->find($id);
+        $custom_proveedor = $this->em->getRepository(Proveedor::class)->findProveedor($id);
        
         return $this->render('proveedor/proveedor.html.twig', [
-            'proveedor' => $proveedor
+            'proveedor' => $proveedor,
+            'custom_proveedor' => $custom_proveedor
                 
         ]);
     }
