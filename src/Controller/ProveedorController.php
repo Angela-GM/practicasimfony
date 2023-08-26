@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 
+
 class ProveedorController extends AbstractController
 {
     private $em;
@@ -43,16 +44,25 @@ class ProveedorController extends AbstractController
         ]);
     }
 
-    // #[Route('/proveedor/{id}', name: 'proveedor_id')]
-    // public function allProveedor(Proveedor $proveedor): Response
-    // {
-    //     dump($proveedor);
-    //     return $this->render('proveedor/index.html.twig', [
-    //         'controller_name' => 'ProveedorController',
-    //         'proveedor' => $proveedor
-                
-    //     ]);
-    // }
+    // Editar proveedor con formulario
+    #[Route('/edit/proveedor/{id}', name: 'edit_proveedor_form')]
+    public function editProveedorForm(Request $request, $id): Response
+    {
+        $proveedor = $this->em->getRepository(Proveedor::class)->find($id);
+        $form = $this->createForm(ProveedorType::class, $proveedor);
+        $form->handleRequest($request);
+
+        if( $form->isSubmitted() && $form->isValid() ){
+            $proveedor = $form->getData();
+            $this->em->persist($proveedor);
+            $this->em->flush();
+            return $this->redirectToRoute('all_proveedor');
+        }
+        return $this->render('proveedor/form2.html.twig', [
+            'form' => $form->createView()
+            
+        ]);
+    }
 
     // Mostrar todos los proveedores
     #[Route('/', name: 'all_proveedor')]
@@ -81,64 +91,64 @@ class ProveedorController extends AbstractController
     }
 
 
-    #[Route('/proveedor/create', name: 'create_proveedor')]
-    public function createProveedor(){
-        $tipos = $this->em->getRepository(Tipo::class)->findAll();
+    // #[Route('/proveedor/create', name: 'create_proveedor')]
+    // public function createProveedor(){
+    //     $tipos = $this->em->getRepository(Tipo::class)->findAll();
 
        
-        return $this->render('proveedor/formulario.html.twig', [
-            'action' => 'Crear',
-            'tipos' => $tipos
+    //     return $this->render('proveedor/formulario.html.twig', [
+    //         'action' => 'Crear',
+    //         'tipos' => $tipos
  
                 
-        ]);
+    //     ]);
        
         
-    }
-    #[Route('/proveedor/edit/{id}', name: 'edit_proveedor')]
-    public function editProveedor($id){
-        $proveedor = $this->em->getRepository(Proveedor::class)->findProveedor($id); 
-        $tipo = $proveedor['tipo_id'];        
+    // }
+    // #[Route('/proveedor/edit/{id}', name: 'edit_proveedor')]
+    // public function editProveedor($id){
+    //     $proveedor = $this->em->getRepository(Proveedor::class)->findProveedor($id); 
+    //     $tipo = $proveedor['tipo_id'];        
         
-        $tipos = $this->em->getRepository(Tipo::class)->findAll($id);
+    //     $tipos = $this->em->getRepository(Tipo::class)->findAll($id);
   
-        return $this->render('proveedor/formulario.html.twig', [
-            'action' => 'Editar',
-            'proveedor' => $proveedor,
-            'id' => $id,
-            'tipos' => $tipos,
-            'tipo' => $tipo,
+    //     return $this->render('proveedor/formulario.html.twig', [
+    //         'action' => 'Editar',
+    //         'proveedor' => $proveedor,
+    //         'id' => $id,
+    //         'tipos' => $tipos,
+    //         'tipo' => $tipo,
                 
-        ]);
+    //     ]);
        
         
-    }
+    // }
 
-    #[Route('/proveedor/save', name: 'save_proveedor')]
-    public function saveProveedor():Response{
-        // print_r($_POST);
-        // die();
-        $proveedor = new Proveedor(nombre: $_POST['nombre'], correo: $_POST['correo'], telefono: $_POST['telefono'], activo: 1, tipo: $_POST['tipo']);
-        // $proveedor = new Proveedor(nombre: 'este no', correo: 'correo@correo.com', telefono: '123456789', activo: 1, tipo: 2);
-        $tipo = $this->em->getRepository(Tipo::class)->findOneBy(['id' => 1]); 
-        $proveedor->setTipo($tipo);
-        // $nombre = addslashes($_POST['nombre']);
-        // $proveedor->setNombre($nombre);
-        // $proveedor->setNombre('Nuevo proveedor');
-        // $proveedor->setCorreo('Correo 1');
-        // $proveedor->setTelefono('Telefono 1');
-        // $proveedor->setTipo($tipo);
-        // $proveedor->setFechaCreacion(new \DateTime());
-        // $proveedor->setFechaActualizacion(new \DateTime());
-        // $fecha_actualizacion = new \DateTime();
-        $this->em->persist($proveedor);
-        $this->em->flush();
+    // #[Route('/proveedor/save', name: 'save_proveedor')]
+    // public function saveProveedor():Response{
+    //     // print_r($_POST);
+    //     // die();
+    //     $proveedor = new Proveedor(nombre: $_POST['nombre'], correo: $_POST['correo'], telefono: $_POST['telefono'], activo: 1, tipo: $_POST['tipo']);
+    //     // $proveedor = new Proveedor(nombre: 'este no', correo: 'correo@correo.com', telefono: '123456789', activo: 1, tipo: 2);
+    //     $tipo = $this->em->getRepository(Tipo::class)->findOneBy(['id' => 1]); 
+    //     $proveedor->setTipo($tipo);
+    //     // $nombre = addslashes($_POST['nombre']);
+    //     // $proveedor->setNombre($nombre);
+    //     // $proveedor->setNombre('Nuevo proveedor');
+    //     // $proveedor->setCorreo('Correo 1');
+    //     // $proveedor->setTelefono('Telefono 1');
+    //     // $proveedor->setTipo($tipo);
+    //     // $proveedor->setFechaCreacion(new \DateTime());
+    //     // $proveedor->setFechaActualizacion(new \DateTime());
+    //     // $fecha_actualizacion = new \DateTime();
+    //     $this->em->persist($proveedor);
+    //     $this->em->flush();
 
-        return new JsonResponse([
-            'status' => 'ok',
-            'message' => 'Proveedor creado correctamente',
-            'proveedor' => $proveedor
-        ]);
+    //     return new JsonResponse([
+    //         'status' => 'ok',
+    //         'message' => 'Proveedor creado correctamente',
+    //         'proveedor' => $proveedor
+    //     ]);
 
 
 
@@ -147,7 +157,7 @@ class ProveedorController extends AbstractController
 
 
         
-    }
+    // }
 
     
 
