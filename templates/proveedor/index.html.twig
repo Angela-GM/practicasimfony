@@ -10,7 +10,7 @@
 
     {# {{ dump(proveedores) }} #}
     <h4>
-    <a href="{{ path('newcreate_proveedor_form') }}">Nuevo Proveedor +</a>
+    <a href="{{ path('crear_proveedor_form') }}">Nuevo Proveedor +</a>
 </h4>
 
 
@@ -44,8 +44,8 @@
                   
                         <a href="{{ path('edit_proveedor_form', {'id': proveedor.id}) }}">Editar</a>
                    
-                   
-                        Eliminar
+                        <a href="{{ path('delete_proveedor', {'id': proveedor.id}) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">Eliminar</a>
+
                   
 
                     </td>

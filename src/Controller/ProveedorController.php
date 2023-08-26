@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-// use Amp\Http\Client\Request;
 use App\Entity\Proveedor;
 use App\Entity\Tipo;
 use App\Form\ProveedorType;
@@ -24,23 +23,35 @@ class ProveedorController extends AbstractController
         $this->em = $em;
     }
 
+    // Mostrar todos los proveedores
+    #[Route('/', name: 'all_proveedor')]
+    public function allProveedor(): Response
+    {
+        $proveedores = $this->em->getRepository(Proveedor::class)->findAll();
+
+        return $this->render('proveedor/index.html.twig', [
+            'proveedores' => $proveedores
+
+        ]);
+    }
+
     // Crear proveedor con formulario
-    #[Route('/newcreate/proveedor', name: 'newcreate_proveedor_form')]
+    #[Route('/new/proveedor', name: 'crear_proveedor_form')]
     public function index(Request $request): Response
     {
         // $proveedor = new Proveedor();
         $form = $this->createForm(ProveedorType::class);
         $form->handleRequest($request);
 
-        if( $form->isSubmitted() && $form->isValid() ){
+        if ($form->isSubmitted() && $form->isValid()) {
             $proveedor = $form->getData();
             $this->em->persist($proveedor);
             $this->em->flush();
-            return $this->redirectToRoute('newcreate_proveedor_form');
+            return $this->redirectToRoute('crear_proveedor_form');
         }
         return $this->render('proveedor/form2.html.twig', [
             'form' => $form->createView()
-            
+
         ]);
     }
 
@@ -52,7 +63,7 @@ class ProveedorController extends AbstractController
         $form = $this->createForm(ProveedorType::class, $proveedor);
         $form->handleRequest($request);
 
-        if( $form->isSubmitted() && $form->isValid() ){
+        if ($form->isSubmitted() && $form->isValid()) {
             $proveedor = $form->getData();
             $proveedor->setFechaActualizacion(new \DateTime());
             $this->em->persist($proveedor);
@@ -61,34 +72,34 @@ class ProveedorController extends AbstractController
         }
         return $this->render('proveedor/form2.html.twig', [
             'form' => $form->createView()
-            
+
         ]);
     }
 
-    // Mostrar todos los proveedores
-    #[Route('/', name: 'all_proveedor')]
-    public function allProveedor(): Response
-    {
-        $proveedores = $this->em->getRepository(Proveedor::class)->findAll();
-       
-        return $this->render('proveedor/index.html.twig', [
-            'proveedores' => $proveedores
-                
-        ]);
-    }
-    
+
+
     // Mostrar proveedor por id
     #[Route('/proveedor/view/{id}', name: 'proveedor_id')]
     public function findForId($id): Response
     {
         $proveedor = $this->em->getRepository(Proveedor::class)->find($id);
         // $custom_proveedor = $this->em->getRepository(Proveedor::class)->findProveedor($id);
-       
+
         return $this->render('proveedor/proveedor.html.twig', [
             'proveedor' => $proveedor,
             // 'custom_proveedor' => $custom_proveedor
-                
+
         ]);
+    }
+
+    // Eliminar Proveedor
+    #[Route('/proveedor/delete/{id}', name: 'delete_proveedor')]
+    public function deleteProveedor($id): Response
+    {
+        $proveedor = $this->em->getRepository(Proveedor::class)->find($id);
+        $this->em->remove($proveedor);
+        $this->em->flush();
+        return $this->redirectToRoute('all_proveedor');
     }
 
 
@@ -96,33 +107,33 @@ class ProveedorController extends AbstractController
     // public function createProveedor(){
     //     $tipos = $this->em->getRepository(Tipo::class)->findAll();
 
-       
+
     //     return $this->render('proveedor/formulario.html.twig', [
     //         'action' => 'Crear',
     //         'tipos' => $tipos
- 
-                
+
+
     //     ]);
-       
-        
+
+
     // }
     // #[Route('/proveedor/edit/{id}', name: 'edit_proveedor')]
     // public function editProveedor($id){
     //     $proveedor = $this->em->getRepository(Proveedor::class)->findProveedor($id); 
     //     $tipo = $proveedor['tipo_id'];        
-        
+
     //     $tipos = $this->em->getRepository(Tipo::class)->findAll($id);
-  
+
     //     return $this->render('proveedor/formulario.html.twig', [
     //         'action' => 'Editar',
     //         'proveedor' => $proveedor,
     //         'id' => $id,
     //         'tipos' => $tipos,
     //         'tipo' => $tipo,
-                
+
     //     ]);
-       
-        
+
+
     // }
 
     // #[Route('/proveedor/save', name: 'save_proveedor')]
@@ -153,16 +164,16 @@ class ProveedorController extends AbstractController
 
 
 
-       
 
 
 
-        
+
+
     // }
 
-    
 
 
 
-    
+
+
 }
