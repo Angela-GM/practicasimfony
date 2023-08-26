@@ -43,6 +43,11 @@
             </tr>
         </tbody>
 
+        <a href="{{ path('all_proveedor') }}">Volver al listado</a>
+        <Button><a href="{{ path('edit_proveedor_form', {'id': proveedor.id}) }}">Editar</a></Button>
+        <Button><a href="{{ path('delete_proveedor', {'id': proveedor.id}) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">Eliminar</a></Button>
+
+
 
 
 
