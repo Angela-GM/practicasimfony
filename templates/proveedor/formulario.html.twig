@@ -7,14 +7,28 @@
 <style>
    {# estilos #}
 </style>
+<form action="{{ action == 'Crear' ? path('create_proveedor') : path('edit_proveedor', {'id': id}) }}" method='POST'>
+    <label>Nombre</label>
+    <input type="text" name="nombre" value="{{ proveedor.nombre ?? '' }}">
+    <label>Correo</label>
+    <input type="email" name="correo" value="{{ proveedor.correo ?? '' }}">
+    <label>Teléfono</label>
+    <input type="text" name="telefono" value="{{ proveedor.telefono ?? '' }}">
+{% set tipo_id_seleccionado = proveedor.tipo_id|default(0) %}
 
-<form action='/proveedor/save' method='POST'>
-<label>Nombre</label>
-<input type="text" name="nombre" value={{proveedor.nombre}}>
+<label for="tipo">Tipo</label>
+<select name="tipo">
+    {% for tipo in tipos %}
+        {% if tipo.id == tipo_id_seleccionado %}
+            <option value="{{ tipo.id }}" selected>{{ tipo.tipo }}</option>
+        {% else %}
+            <option value="{{ tipo.id }}">{{ tipo.tipo }}</option>
+        {% endif %}
+    {% endfor %}
+</select>
 
-<button type="submit">Guardar</button>
-
- </form>
+    <button type="submit">Guardar</button>
+</form>
 
 
 

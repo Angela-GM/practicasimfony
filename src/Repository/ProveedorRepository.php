@@ -49,8 +49,9 @@ class ProveedorRepository extends ServiceEntityRepository
 public function findProveedor($id){
     return $this->getEntityManager()
     ->createQuery('
-        SELECT proveedor.id, proveedor.nombre
+        SELECT proveedor.id, proveedor.nombre, proveedor.correo, proveedor.telefono, proveedor.activo, proveedor.fecha_creacion, proveedor.fecha_actualizacion, tipo.tipo as tipo_id
         FROM App\Entity\Proveedor proveedor
+        JOIN proveedor.tipo tipo
         WHERE proveedor.id = :id
         ')
         ->setParameter('id', $id)

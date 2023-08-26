@@ -12,10 +12,10 @@ class Proveedor
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id;
 
     #[ORM\Column(length: 45)]
-    private ?string $nombre = null;
+    private ?string $nombre;
 
     #[ORM\Column(length: 45)]
     private ?string $correo = null;
@@ -27,14 +27,26 @@ class Proveedor
     private ?bool $activo = true;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $fecha_creacion = null;
+    private ?\DateTimeInterface $fecha_creacion;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $fecha_actualizacion = null;
+    private ?\DateTimeInterface $fecha_actualizacion;
 
     #[ORM\ManyToOne(inversedBy: 'proveedor', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Tipo $tipo = null;
+    private ?Tipo $tipo;
+
+    public function __construct($nombre = null, $correo = null, $telefono = null, $activo = null, $fecha_creacion = null, $fecha_actualizacion = null, $tipo = null)
+    {
+        $this->nombre = $nombre;
+        $this->correo = $correo;
+        $this->telefono = $telefono;
+        $this->activo = $activo;
+        $this->fecha_creacion = new \DateTime();
+        $this->fecha_actualizacion = new \DateTime();
+        $this->tipo = new Tipo();
+    }
+   
 
     public function getId(): ?int
     {

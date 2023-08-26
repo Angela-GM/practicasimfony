@@ -69,9 +69,12 @@ class ProveedorController extends AbstractController
 
     #[Route('/proveedor/create', name: 'create_proveedor')]
     public function createProveedor(){
+        $tipos = $this->em->getRepository(Tipo::class)->findAll();
+
        
         return $this->render('proveedor/formulario.html.twig', [
-            'action' => 'create',
+            'action' => 'Crear',
+            'tipos' => $tipos
  
                 
         ]);
@@ -80,11 +83,17 @@ class ProveedorController extends AbstractController
     }
     #[Route('/proveedor/edit/{id}', name: 'edit_proveedor')]
     public function editProveedor($id){
-        $proveedor = $this->em->getRepository(Proveedor::class)->findProveedor($id);     
+        $proveedor = $this->em->getRepository(Proveedor::class)->findProveedor($id); 
+        $tipo = $proveedor['tipo_id'];        
+        
+        $tipos = $this->em->getRepository(Tipo::class)->findAll($id);
+  
         return $this->render('proveedor/formulario.html.twig', [
-            'action' => 'create',
+            'action' => 'Editar',
             'proveedor' => $proveedor,
             'id' => $id,
+            'tipos' => $tipos,
+            'tipo' => $tipo,
                 
         ]);
        
@@ -93,18 +102,21 @@ class ProveedorController extends AbstractController
 
     #[Route('/proveedor/save', name: 'save_proveedor')]
     public function saveProveedor():Response{
-        print_r($_POST);
-        die();
-        $proveedor = new Proveedor();
+        // print_r($_POST);
+        // die();
+        $proveedor = new Proveedor(nombre: $_POST['nombre'], correo: $_POST['correo'], telefono: $_POST['telefono'], activo: 1, tipo: $_POST['tipo']);
+        // $proveedor = new Proveedor(nombre: 'este no', correo: 'correo@correo.com', telefono: '123456789', activo: 1, tipo: 2);
         $tipo = $this->em->getRepository(Tipo::class)->findOneBy(['id' => 1]); 
-        $nombre = addslashes($_POST['nombre']);
-        $proveedor->setNombre($nombre);
-        $proveedor->setCorreo('Correo 1');
-        $proveedor->setTelefono('Telefono 1');
         $proveedor->setTipo($tipo);
-        // $proveedor->setActivo(true);
-        $fecha_creacion = new \DateTime();
-        $fecha_actualizacion = new \DateTime();
+        // $nombre = addslashes($_POST['nombre']);
+        // $proveedor->setNombre($nombre);
+        // $proveedor->setNombre('Nuevo proveedor');
+        // $proveedor->setCorreo('Correo 1');
+        // $proveedor->setTelefono('Telefono 1');
+        // $proveedor->setTipo($tipo);
+        // $proveedor->setFechaCreacion(new \DateTime());
+        // $proveedor->setFechaActualizacion(new \DateTime());
+        // $fecha_actualizacion = new \DateTime();
         $this->em->persist($proveedor);
         $this->em->flush();
 
@@ -113,6 +125,9 @@ class ProveedorController extends AbstractController
             'message' => 'Proveedor creado correctamente',
             'proveedor' => $proveedor
         ]);
+
+
+
         
     }
 
