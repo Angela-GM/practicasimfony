@@ -36,7 +36,7 @@ class Proveedor
     #[ORM\JoinColumn(nullable: false)]
     private ?Tipo $tipo;
 
-    public function __construct($nombre = null, $correo = null, $telefono = null, $activo = null, $fecha_creacion = null, $fecha_actualizacion = null, $tipo = null)
+    public function __construct($nombre = null, $correo = null, $telefono = null, $activo = 1, $fecha_creacion = null, $fecha_actualizacion = null, $tipo = null)
     {
         $this->nombre = $nombre;
         $this->correo = $correo;

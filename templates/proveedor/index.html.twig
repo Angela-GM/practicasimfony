@@ -9,6 +9,7 @@
 <h1>Listado de Proveedores</h1>
 
     {# {{ dump(proveedores) }} #}
+    <h4>Nuevo Proveedor +</h4>
 
     <table class="table table-striped">
         <thead>
@@ -31,10 +32,19 @@
                     <td>{{ proveedor.telefono }}</td>
                     <td>{{ proveedor.tipo.tipo }}</td>
                     <td>{{ proveedor.activo ? "Activo" : "Inactivo" }}</td>
-                    {# <td>
-                        <a href="{{ path('proveedor_show', {'id': proveedor.id}) }}">show</a>
-                        <a href="{{ path('proveedor_edit', {'id': proveedor.id}) }}">edit</a>
-                    </td> #}
+                    <td>
+                    
+                    
+                                                <a href="{{ path('proveedor_id', {'id': proveedor.id}) }}">Ver</a>
+
+                  
+                        Editar
+                   
+                   
+                        Eliminar
+                  
+
+                    </td>
                 </tr>
             {% else %}
                 <tr>

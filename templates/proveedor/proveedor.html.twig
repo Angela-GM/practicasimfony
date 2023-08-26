@@ -8,7 +8,7 @@
 </style>
 <h1>Detalle de Proveedor</h1>
 
-    {{ dump(custom_proveedor) }}
+    {{ dump(proveedor) }}
 
     <table class="table table-striped">
         <tbody>
@@ -30,14 +30,14 @@
                 <td>{{ proveedor.correo }}</td>
             </tr>
            
-            {# <tr>
+            <tr>
                 <th>Fecha de Registro</th>
-                <td>{{ proveedor.fecha_creacion ? proveedor.fecha_creacion|date('Y-m-d') : '' }}</td>
+            <td>{{ proveedor.getFechaCreacion()|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Fecha de Actualizacion</th>
-                <td>{{ proveedor.fecha_actualizacion ? proveedor.fecha_actualizacion|date('Y-m-d') : '' }}</td>
-            </tr> #}
+            <td>{{ proveedor.getFechaActualizacion()|date('Y-m-d H:i:s') }}</td>
+            </tr>
             <tr>
                 <th>Estado</th>
                 <td>{{ proveedor.activo ? "Activo" : "Inactivo" }}</td>

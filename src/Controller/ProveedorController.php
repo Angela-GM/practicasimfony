@@ -5,6 +5,7 @@ namespace App\Controller;
 // use Amp\Http\Client\Request;
 use App\Entity\Proveedor;
 use App\Entity\Tipo;
+use App\Form\ProveedorType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,15 +23,25 @@ class ProveedorController extends AbstractController
         $this->em = $em;
     }
 
-    
-    // #[Route('/proveedor', name: 'app_proveedor')]
-    // public function index(Proveedor $proveedores): Response
-    // {
-    //     return $this->render('proveedor/index.html.twig', [
-    //         'controller_name' => 'ProveedorController',
-    //         'proveedores' => $proveedores->findAll()
-    //     ]);
-    // }
+    // Crear proveedor con formulario
+    #[Route('/newcreate/proveedor', name: 'newcreate_proveedor')]
+    public function index(Request $request): Response
+    {
+        // $proveedor = new Proveedor();
+        $form = $this->createForm(ProveedorType::class);
+        $form->handleRequest($request);
+
+        if( $form->isSubmitted() && $form->isValid() ){
+            $proveedor = $form->getData();
+            $this->em->persist($proveedor);
+            $this->em->flush();
+            return $this->redirectToRoute('newcreate_proveedor');
+        }
+        return $this->render('proveedor/form2.html.twig', [
+            'form' => $form->createView()
+            
+        ]);
+    }
 
     // #[Route('/proveedor/{id}', name: 'proveedor_id')]
     // public function allProveedor(Proveedor $proveedor): Response
@@ -43,6 +54,7 @@ class ProveedorController extends AbstractController
     //     ]);
     // }
 
+    // Mostrar todos los proveedores
     #[Route('/', name: 'all_proveedor')]
     public function allProveedor(): Response
     {
@@ -54,18 +66,20 @@ class ProveedorController extends AbstractController
         ]);
     }
     
+    // Mostrar proveedor por id
     #[Route('/proveedor/view/{id}', name: 'proveedor_id')]
     public function findForId($id): Response
     {
         $proveedor = $this->em->getRepository(Proveedor::class)->find($id);
-        $custom_proveedor = $this->em->getRepository(Proveedor::class)->findProveedor($id);
+        // $custom_proveedor = $this->em->getRepository(Proveedor::class)->findProveedor($id);
        
         return $this->render('proveedor/proveedor.html.twig', [
             'proveedor' => $proveedor,
-            'custom_proveedor' => $custom_proveedor
+            // 'custom_proveedor' => $custom_proveedor
                 
         ]);
     }
+
 
     #[Route('/proveedor/create', name: 'create_proveedor')]
     public function createProveedor(){
@@ -125,6 +139,10 @@ class ProveedorController extends AbstractController
             'message' => 'Proveedor creado correctamente',
             'proveedor' => $proveedor
         ]);
+
+
+
+       
 
 
 
