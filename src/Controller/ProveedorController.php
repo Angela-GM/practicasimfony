@@ -25,7 +25,7 @@ class ProveedorController extends AbstractController
     }
 
     // Crear proveedor con formulario
-    #[Route('/newcreate/proveedor', name: 'newcreate_proveedor')]
+    #[Route('/newcreate/proveedor', name: 'newcreate_proveedor_form')]
     public function index(Request $request): Response
     {
         // $proveedor = new Proveedor();
@@ -36,7 +36,7 @@ class ProveedorController extends AbstractController
             $proveedor = $form->getData();
             $this->em->persist($proveedor);
             $this->em->flush();
-            return $this->redirectToRoute('newcreate_proveedor');
+            return $this->redirectToRoute('newcreate_proveedor_form');
         }
         return $this->render('proveedor/form2.html.twig', [
             'form' => $form->createView()
@@ -54,6 +54,7 @@ class ProveedorController extends AbstractController
 
         if( $form->isSubmitted() && $form->isValid() ){
             $proveedor = $form->getData();
+            $proveedor->setFechaActualizacion(new \DateTime());
             $this->em->persist($proveedor);
             $this->em->flush();
             return $this->redirectToRoute('all_proveedor');

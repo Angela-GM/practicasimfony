@@ -9,7 +9,11 @@
 <h1>Listado de Proveedores</h1>
 
     {# {{ dump(proveedores) }} #}
-    <h4>Nuevo Proveedor +</h4>
+    <h4>
+    <a href="{{ path('newcreate_proveedor_form') }}">Nuevo Proveedor +</a>
+</h4>
+
+
 
     <table class="table table-striped">
         <thead>
