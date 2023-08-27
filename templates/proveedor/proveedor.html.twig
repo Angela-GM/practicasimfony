@@ -45,8 +45,12 @@
             <td>{{ proveedor.getFechaActualizacion()|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr class="bg-white border-b hover:bg-gray-50">
-                <th>Estado</th>
-                <td>{{ proveedor.activo ? "Activo" : "Inactivo" }}</td>
+                <th>Activo</th>
+                <td>{% if proveedor.activo %}
+        <i class="fa-regular fa-circle-check text-lg text-green-500"></i>
+    {% else %}
+        <i class="fa-regular fa-circle-xmark text-lg text-red-500"></i>
+    {% endif %}</td>
             </tr>
         </tbody>
 

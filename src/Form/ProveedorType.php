@@ -31,7 +31,7 @@ class ProveedorType extends AbstractType
             ->add('nombre')
             ->add('correo')
             ->add('telefono')
-            // ->add('activo')
+            ->add('activo')
             ->add('tipo', EntityType::class, [
                 'class' => Tipo::class,
                 'choice_label' => 'tipo', 
