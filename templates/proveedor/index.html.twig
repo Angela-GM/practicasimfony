@@ -13,12 +13,12 @@
     top: 0;
     left: 0;
     z-index: 1;
-    background-color: #f7fafc; /* Color de fondo del encabezado */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para separar el encabezado del cuerpo de la tabla */
+    background-color: #f7fafc; 
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .table-container {
-    max-height: calc(100vh - 186px); /* Ajusta esta altura según tus necesidades */
+    max-height: calc(100vh - 186px);
     overflow-y: auto;
 }
 
@@ -40,15 +40,15 @@
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <div class="table-container overflow-x-auto w-full">
-        <table class="w-full text-sm text-left text-gray-500 table-fixed">
+            <table class="w-full text-sm sm:text-base md:text-lg text-left text-gray-500 table-fixed">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 sticky top-0 p-4 shadow-md z-10">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Id</th>
-                    <th scope="col" class="px-6 py-3">Nombre</th>
-                    <th scope="col" class="px-6 py-3">Email</th>
+                    <th scope="col" class="px-6 py-3 w-1/12">Id</th>
+                    <th scope="col" class="px-6 py-3 w-2/12">Nombre</th>
+                    <th scope="col" class="px-6 py-3 w-3/12">Email</th>
                     <th scope="col" class="px-6 py-3">Teléfono</th>
                     <th scope="col" class="px-6 py-3">Tipo</th>
-                    <th scope="col" class="px-6 py-3">Activo</th>
+                    <th scope="col" class="px-6 py-3 w-1/12">Activo</th>
                     <th scope="col" class="px-6 py-3 text-right">Acciones</th>
                 </tr>
             </thead>
