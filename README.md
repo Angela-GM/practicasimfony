@@ -43,7 +43,9 @@ los proveedores con los que trabajan habitualmente, se solicita una aplicación
 que les permita hacerlo de forma rápida y sencilla
 
 ## Estado del proyecto
-Se ha creado una app donde se puede ver todos los proveedors, actulizar, eliminar o añadir uno nuevo.
+Se ha creado una app donde se puede ver todos los proveedors, actulizar, eliminar o añadir uno nuevo. <br>  
+<img src="https://res.cloudinary.com/drjyg98uv/image/upload/v1693169025/gestion-proveedores-symonyy-php-mysql/bvpnkopuyuffunzshjai.png" width="100%"><br>
+
 
 ## Características de la aplicación y demostración
 <img src="https://res.cloudinary.com/drjyg98uv/image/upload/v1693161001/gestion-proveedores-symonyy-php-mysql/uhh6lwcd2qymp9hmrfdt.png" width="100%"><br>
