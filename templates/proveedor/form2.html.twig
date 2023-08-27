@@ -4,11 +4,48 @@
 
 
 {% block body %}
-<style>
-   {# estilos #}
-</style>
+<div class="flex flex-col mx-auto">
+    <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-3">
+        <header class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold text-white">Nuevo Proveedor</h1>      
+        </header>
+    </div>
+</div>
+    
+    
+<div class="container my-4 mx-auto w-1/2">
+    {{ form_start(form) }}
 
-{{ form (form)}}
+    <div class="mb-4">
+        {{ form_label(form.nombre, 'Nombre', {'label_attr': {'class': 'font-bold block mb-1'}}) }}
+        {{ form_widget(form.nombre, {'attr': {'class': 'border rounded p-2 w-full'}}) }}    
+    </div>
+
+    <div class="mb-4">
+        {{ form_label(form.correo, 'Correo', {'label_attr': {'class': 'font-bold block mb-1'}}) }}
+        {{ form_widget(form.correo, {'attr': {'class': 'border rounded p-2 w-full'}}) }}
+    </div>
+
+    <div class="mb-4">
+         {{ form_label(form.telefono, 'Teléfono', {'label_attr': {'class': 'font-bold block mb-1'}}) }}
+        {{ form_widget(form.telefono, {'attr': {'class': 'border rounded p-2 w-full'}}) }}
+    </div>
+
+    <div class="mb-4">
+        {{ form_label(form.activo, 'Activo', {'label_attr': {'class': 'font-bold block mb-1'}}) }}
+        {{ form_widget(form.activo) }}
+    </div>
+    <div class="mb-4">
+       {{ form_label(form.tipo, 'Tipo', {'label_attr': {'class': 'font-bold block mb-1'}}) }}
+        {{ form_widget(form.tipo, {'attr': {'class': 'border rounded p-2 w-full'}}) }}
+    </div>
+    <div class="flex">
+        {{ form_widget(form.guardar) }}
+        {{ form_widget(form.volver) }}
+    </div>
+    {{ form_end(form) }}
+</div>
+
 
 
 
