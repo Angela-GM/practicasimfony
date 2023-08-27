@@ -1,49 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProveedorController!{% endblock %}
+{% block title %}Detalle {{ proveedor.nombre }}{% endblock %}
 
 {% block body %}
 
-<h1>Detalle de Proveedor</h1>
+
+<div class="flex flex-col mx-auto">
+    <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-3">
+        <header class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold text-white">{{ proveedor.nombre }}</h1>      
+        </header>
+    </div>
+</div>
+
+<div class='flex flex-col-reverse pt-5'>
 
 
-    <table class="table table-striped">
+    <table class="w-1/2 m-auto text-sm text-left text-gray-500 table-fixed">
         <tbody>
-            <tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
                 <th>Id</th>
                 <td>{{ proveedor.id }}</td>
             </tr>
-            <tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
                 <th>Nombre</th>
                 <td>{{ proveedor.nombre }}</td>
             </tr>
             
-            <tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
                 <th>Telefono</th>
                 <td>{{ proveedor.telefono }}</td>
             </tr>
-            <tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
                 <th>Correo</th>
                 <td>{{ proveedor.correo }}</td>
             </tr>
            
-            <tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
                 <th>Fecha de Registro</th>
             <td>{{ proveedor.getFechaCreacion()|date('Y-m-d H:i:s') }}</td>
             </tr>
-            <tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
                 <th>Fecha de Actualizacion</th>
             <td>{{ proveedor.getFechaActualizacion()|date('Y-m-d H:i:s') }}</td>
             </tr>
-            <tr>
+            <tr class="bg-white border-b hover:bg-gray-50">
                 <th>Estado</th>
                 <td>{{ proveedor.activo ? "Activo" : "Inactivo" }}</td>
             </tr>
         </tbody>
 
-        <Button><a href="{{ path('all_proveedor') }}">Volver al listado</a></Button>
-        <Button><a href="{{ path('edit_proveedor_form', {'id': proveedor.id}) }}">Editar</a></Button>
-        <Button><a href="{{ path('delete_proveedor', {'id': proveedor.id}) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">Eliminar</a></Button>
+       
+<div class="px-6 py-4 m-auto ">
+        <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" href="{{ path('all_proveedor') }}"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+        <a class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2" href="{{ path('edit_proveedor_form', {'id': proveedor.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+       <a class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2" href="{{ path('delete_proveedor', {'id': proveedor.id}) }}" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">
+                            <i class="fa-solid fa-circle-minus"></i></a>
+</div>
+</div>
+
 
 
 
